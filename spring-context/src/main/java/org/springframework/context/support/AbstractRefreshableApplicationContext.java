@@ -127,9 +127,12 @@ public abstract class AbstractRefreshableApplicationContext extends AbstractAppl
 			closeBeanFactory();
 		}
 		try {
+			//创建bean工厂，此时工厂中的值都是默认值。
 			DefaultListableBeanFactory beanFactory = createBeanFactory();
+			//开在往工厂中设置具体的值
 			beanFactory.setSerializationId(getId());
 			customizeBeanFactory(beanFactory);
+			//***开始解析XML文件***
 			loadBeanDefinitions(beanFactory);
 			synchronized (this.beanFactoryMonitor) {
 				this.beanFactory = beanFactory;
@@ -204,6 +207,7 @@ public abstract class AbstractRefreshableApplicationContext extends AbstractAppl
 	 * @see org.springframework.beans.factory.support.DefaultListableBeanFactory#setAllowRawInjectionDespiteWrapping
 	 */
 	protected DefaultListableBeanFactory createBeanFactory() {
+		//getInternalParentBeanFactory 获取父类的beanfactory，形成父子容器关系。
 		return new DefaultListableBeanFactory(getInternalParentBeanFactory());
 	}
 
@@ -222,6 +226,9 @@ public abstract class AbstractRefreshableApplicationContext extends AbstractAppl
 	 * @see DefaultListableBeanFactory#setAllowEagerClassLoading
 	 */
 	protected void customizeBeanFactory(DefaultListableBeanFactory beanFactory) {
+		/**
+		 * 以下两个方法和平常使用：lookup-method、replaced-method有关
+		 */
 		if (this.allowBeanDefinitionOverriding != null) {
 			beanFactory.setAllowBeanDefinitionOverriding(this.allowBeanDefinitionOverriding);
 		}
