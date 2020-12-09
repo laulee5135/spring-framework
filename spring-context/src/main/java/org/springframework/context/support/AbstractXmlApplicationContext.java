@@ -90,7 +90,9 @@ public abstract class AbstractXmlApplicationContext extends AbstractRefreshableC
 
 		// Allow a subclass to provide custom initialization of the reader,
 		// then proceed with actually loading the bean definitions.
-		initBeanDefinitionReader(beanDefinitionReader);
+		//初始化initBeanDefinitionReader对象，此处设置配置文件是否要进行验证
+		initBeanDefinitionReader(beanDefinitionReader); //适配器模式？
+		//完成beanDefinition的加载
 		loadBeanDefinitions(beanDefinitionReader);
 	}
 
@@ -119,11 +121,13 @@ public abstract class AbstractXmlApplicationContext extends AbstractRefreshableC
 	 * @see #getResourcePatternResolver
 	 */
 	protected void loadBeanDefinitions(XmlBeanDefinitionReader reader) throws BeansException, IOException {
+		//ClassPathXmlApplicationContext(String[] paths, Class<?> clazz, @Nullable ApplicationContext parent)
+		//只有调用上面的构造方法才会触发getConfigResources，取决于启动的时候用的哪个
 		Resource[] configResources = getConfigResources(); //从resource文件中获取bean定义信息
 		if (configResources != null) {
 			reader.loadBeanDefinitions(configResources);
 		}
-		String[] configLocations = getConfigLocations(); //从XML文件中获取bean定义信息
+		String[] configLocations = getConfigLocations(); //从XML文件中获取bean定义信息,set的位置：org.springframework.context.support.AbstractRefreshableConfigApplicationContext.setConfigLocations
 		if (configLocations != null) {
 			reader.loadBeanDefinitions(configLocations);
 		}

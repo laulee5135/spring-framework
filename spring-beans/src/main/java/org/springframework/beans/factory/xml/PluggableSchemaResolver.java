@@ -85,6 +85,7 @@ public class PluggableSchemaResolver implements EntityResolver {
 	 */
 	public PluggableSchemaResolver(@Nullable ClassLoader classLoader) {
 		this.classLoader = classLoader;
+		//如果没有联网，那么从本地该路径下获取dtd/xsd文件的schemas
 		this.schemaMappingsLocation = DEFAULT_SCHEMA_MAPPINGS_LOCATION;
 	}
 
@@ -154,6 +155,7 @@ public class PluggableSchemaResolver implements EntityResolver {
 						logger.trace("Loading schema mappings from [" + this.schemaMappingsLocation + "]");
 					}
 					try {
+						//加载META-INF/spring.schemas文件
 						Properties mappings =
 								PropertiesLoaderUtils.loadAllProperties(this.schemaMappingsLocation, this.classLoader);
 						if (logger.isTraceEnabled()) {
