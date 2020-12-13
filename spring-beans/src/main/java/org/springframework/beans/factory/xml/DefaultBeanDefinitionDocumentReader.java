@@ -173,10 +173,10 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 				if (node instanceof Element) {
 					Element ele = (Element) node;
 					if (delegate.isDefaultNamespace(ele)) {
-						parseDefaultElement(ele, delegate);  //处理默认的标签
+						parseDefaultElement(ele, delegate);  //处理默认的标签: bean\import\alias\beans
 					}
 					else {
-						delegate.parseCustomElement(ele);//处理自定义的标签,todo 如何自定义标签
+						delegate.parseCustomElement(ele);//处理自定义的标签,包括：<context..> <tx..> <aop..> 这些都需要引入额外的命名空间。todo 扩展点：自定义标签
 					}
 				}
 			}

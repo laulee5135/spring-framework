@@ -133,7 +133,7 @@ public abstract class AbstractRefreshableApplicationContext extends AbstractAppl
 			beanFactory.setSerializationId(getId());
 			customizeBeanFactory(beanFactory);
 			//***开始解析XML文件***
-			loadBeanDefinitions(beanFactory);
+			loadBeanDefinitions(beanFactory);  //解析 XML、注解等形式的bean定义。由不同的实现类解析。abstractxmlapplicationcontext、annotationwebapplicationcontext。。。
 			synchronized (this.beanFactoryMonitor) {
 				this.beanFactory = beanFactory;
 			}

@@ -1394,7 +1394,7 @@ public class BeanDefinitionParserDelegate {
 	 */
 	@Nullable
 	public BeanDefinition parseCustomElement(Element ele, @Nullable BeanDefinition containingBd) {
-		//获取对应的命名空间
+		//获取对应的命名空间，比如处理<context:property-placeholder localtion="classpath:db.properties"/> 此时namespaceUri == "http://www.springframework.org/schema/context"
 		String namespaceUri = getNamespaceURI(ele);
 		if (namespaceUri == null) {
 			return null;
